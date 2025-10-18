@@ -1,10 +1,12 @@
 import cv2
 import mediapipe as mp
-from save_data import save_data
 import os
 from dotenv import load_dotenv
-load_dotenv()
+from keras.models import load_model
+import numpy as np
 
+load_dotenv()
+model = load_model('first_model.h5')
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.5)
@@ -15,7 +17,7 @@ cap.set(4, 480)
 
 dataset = []
 
-current_label = os.getenv('CURRENT_LABEL')
+labels = ['A', 'B']
 
 while True:
     response, frame = cap.read()
@@ -42,17 +44,13 @@ while True:
                 landmarks_list = []
                 for lm in hand_landmarks.landmark:
                     landmarks_list.extend([lm.x, lm.y, lm.z])
-                sample = {
-                    'landmarks': landmarks_list,
-                    'label': current_label
-                }
-                dataset.append(sample)
-                print(f"Amostra capturada: {sample['label']} com {len(landmarks_list)} valores")
+                
+                X = np.array([landmarks_list])
+                prediction = model.predict(X)
+                predicti_label = labels[np.argmax(prediction)]
+                print(f'Result do model: {predicti_label}')
 
-
-print(f'dataset letra {current_label}: ', dataset)
-print(f'{len(dataset)} amostras capturadas da letra {current_label}')
 cap.release()
 cv2.destroyAllWindows()
 
-save_data(dataset=dataset, label=current_label)
+

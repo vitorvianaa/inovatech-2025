@@ -77,6 +77,8 @@ env/
 
 # Logs
 *.log
+*.h5
+*.csv
 
 # Environment variables
 .env

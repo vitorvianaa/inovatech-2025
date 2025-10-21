@@ -32,8 +32,24 @@ while True:
         for hand in result.multi_hand_landmarks:
             mp_drawing.draw_landmarks(frame, hand, mp_hands.HAND_CONNECTIONS)
 
+    #     for hand_landmarks in result.multi_hand_landmarks:
+    #             landmarks_list = []
+    #             for lm in hand_landmarks.landmark:
+    #                 landmarks_list.extend([lm.x, lm.y, lm.z])
+                
+    #             X = np.array([landmarks_list])
+    #             prediction = model.predict(X)[0]
+    #             index_label = np.argmax(prediction)
+    #             accuracy = prediction[index_label]
+                
+    #             if accuracy < 0.7:
+    #                 print('nada detectado')
+    #             else:
+    #                 print(f'Result do model: {labels[index_label]}')
+    #             continue            
+    # print('nada detectado')
+    
     cv2.imshow("MostraMao", frame)
-
     key = cv2.waitKey(1) & 0xFF
     
     if key == 27:
@@ -46,9 +62,15 @@ while True:
                     landmarks_list.extend([lm.x, lm.y, lm.z])
                 
                 X = np.array([landmarks_list])
-                prediction = model.predict(X)
-                predicti_label = labels[np.argmax(prediction)]
-                print(f'Result do model: {predicti_label}')
+                prediction = model.predict(X)[0]
+                print('prediction: ', prediction)
+                index_label = np.argmax(prediction)
+                accuracy = prediction[index_label]
+                print(f'accuracy: {accuracy}')  
+                print(f'Result do model: {labels[index_label]}')
+    if len(dataset) == 500:
+        print('dados coletados...')
+        break       
 
 cap.release()
 cv2.destroyAllWindows()

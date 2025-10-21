@@ -17,8 +17,9 @@ def save_data(dataset: list, label: str):
 
 
 
-df1 = pd.read_csv('dataset_training_A.csv')
-df2 = pd.read_csv('dataset_training_B.csv')
-df_combinado = pd.concat([df1, df2], ignore_index=True)
+# df1 = pd.read_csv('dataset_training_A.csv')
+# df2 = pd.read_csv('dataset_training_B.csv')
+# #df3 = pd.read_csv('dataset_training.csv')
+# df_combinado = pd.concat([df1, df2], ignore_index=True)
 
-df_combinado.to_csv('dataset_training.csv', index=False)
+# df_combinado.to_csv('dataset_training.csv', index=False)

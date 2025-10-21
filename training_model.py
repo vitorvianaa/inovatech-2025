@@ -33,6 +33,6 @@ model = Sequential([
 
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-model.fit(X, y_categorical, epochs=50, validation_split=0.2)
+model.fit(X, y_categorical, epochs=100, validation_split=0.2)
 
 model.save('first_model.h5')

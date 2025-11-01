@@ -49,6 +49,9 @@ while True:
                 dataset.append(sample)
                 print(f"Amostra capturada: {sample['label']} com {len(landmarks_list)} valores")
 
+    if len(dataset) == 500:
+        print('dados coletados...')
+        break   
 
 print(f'dataset letra {current_label}: ', dataset)
 print(f'{len(dataset)} amostras capturadas da letra {current_label}')

@@ -17,7 +17,7 @@ cap.set(4, 480)
 
 dataset = []
 
-labels = ['A', 'B']
+labels = ['A', 'B', 'C', 'D', 'E']
 
 while True:
     response, frame = cap.read()
@@ -67,10 +67,7 @@ while True:
                 index_label = np.argmax(prediction)
                 accuracy = prediction[index_label]
                 print(f'accuracy: {accuracy}')  
-                print(f'Result do model: {labels[index_label]}')
-    if len(dataset) == 500:
-        print('dados coletados...')
-        break       
+                print(f'Result do model: {labels[index_label]}')   
 
 cap.release()
 cv2.destroyAllWindows()

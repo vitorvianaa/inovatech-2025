@@ -82,3 +82,5 @@ env/
 
 # Environment variables
 .env
+dataset/
+dataset_final/

@@ -17,7 +17,7 @@ cap.set(4, 480)
 
 dataset = []
 
-labels = ['A', 'B']
+labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 while True:
     response, frame = cap.read()
@@ -64,13 +64,38 @@ while True:
                 X = np.array([landmarks_list])
                 prediction = model.predict(X)[0]
                 print('prediction: ', prediction)
-                index_label = np.argmax(prediction)
-                accuracy = prediction[index_label]
-                print(f'accuracy: {accuracy}')  
-                print(f'Result do model: {labels[index_label]}')
-    if len(dataset) == 500:
-        print('dados coletados...')
-        break       
+
+
+                # Pega o top 3
+                top_indices = np.argsort(prediction)[::-1][:3]
+                top_values = prediction[top_indices]
+                top_labels = [labels[i] for i in top_indices]
+
+                # Mostra a diferença entre as mais prováveis
+                print("Top 3 predições:")
+                for lbl, val in zip(top_labels, top_values):
+                    print(f"{lbl}: {val*100:.2f}%")
+                
+                # filtrando por trashold
+                threshold = 0.8
+                margem = 1e-8
+                indices = np.where(prediction + margem >= threshold)[0]
+                
+                # colocando do maior p menor
+                indices = indices[np.argsort(prediction[indices])[::-1]]
+                top_filtered = [(labels[i], float(prediction[i])) for i in indices]
+                
+                print(f'top filtered: {top_filtered}')
+                # printando na tela
+                if len(top_filtered) == 0:
+                    print('Sem classificacao')
+                elif len(top_filtered) == 1:
+                    print(f'Classificacao do modelo: {top_filtered[0][0]}. Acuracia: ({top_filtered[0][1]}%)')
+                else:
+                    suggestions = " ou ".join([f"{lbl} ({conf}%)" for lbl, conf in top_filtered])
+                    print(f'voce quis dizer: {suggestions} ?')
+              
+               
 
 cap.release()
 cv2.destroyAllWindows()

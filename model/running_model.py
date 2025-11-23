@@ -3,14 +3,13 @@ import mediapipe as mp
 import numpy as np
 from keras.models import load_model
 import pickle
+from audio.audio import generate_audio, play_audio
+import keyboard
 
-# --- CONFIGURAÇÕES INICIAIS ---
 
-# 1. Carregar o Modelo Keras (.h5)
 print("Carregando modelo neural...")
 model = load_model('best_model.h5')
 
-# 2. Carregar o Label Encoder (para traduzir Numero -> Letra)
 try:
     with open('label_encoder.pkl', 'rb') as f:
         encoder = pickle.load(f)
@@ -92,6 +91,13 @@ while cap.isOpened():
         frase_atual = frase_atual[:-1]
     elif key == 27: # ESC
         break
+
+    if keyboard.is_pressed('ctrl'):
+        print('gerando audio....')
+        file_path = generate_audio(name=frase_atual)
+
+        print('iniciando audio...')
+        play_audio(file_path=file_path)
 
     cv2.imshow('Tradutor LIBRAS - Deep Learning', frame)
 

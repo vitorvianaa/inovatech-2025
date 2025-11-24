@@ -152,7 +152,7 @@ def atualizar_camera():
     letra_label.configure(text=f"Letra atual: {letra_atual}")
 
 
-    img = Image.fromarray(rgb)
+    img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
     img = img.resize((740, 480))
     imgtk = ImageTk.PhotoImage(img)
 

@@ -75,7 +75,7 @@ frame_resultado.pack_propagate(False)
 
 resultado_label = ctk.CTkLabel(
     frame_resultado,
-    text="Meu nome é (?)",
+    text="Meu nome é ",
     font=ctk.CTkFont(size=46, weight="bold"),
     text_color=DOURADO
 )
@@ -147,7 +147,6 @@ def atualizar_camera():
             file_path = generate_audio(name=frase_atual)
             play_audio(file_path)
 
-
     resultado_label.configure(text=f"Meu nome é {frase_atual if frase_atual else '(?)'}")
     letra_label.configure(text=f"Letra atual: {letra_atual}")
 
@@ -166,7 +165,7 @@ def mostrar_tela_comandos():
     popup = ctk.CTkToplevel(janela)
     popup.title("Comandos disponíveis")
     popup.geometry("500x400")
-    popup.resizable(False, False)
+    popup.resizable(True, True)
     popup.configure(fg_color=AZUL_CONTAINER)
     popup.grab_set()
 

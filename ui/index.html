@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silent Voice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Silent Voice</h1>
+        <p class="subtitulo">Demonstração em tempo real, ENGCO222M01</p>
+
+        <div class="camera-frame">
+            <video id="video" autoplay playsinline></video>
+        </div>
+
+        <div class="resultado-frame">
+            <h2 id="frase">Meu nome é (?)</h2>
+            <p id="letra">Letra atual: (?)</p>
+        </div>
+
+        <div class="comandos">
+            <p>ENTER → Adiciona a letra detectada</p>
+            <p>ESPAÇO → Adiciona um espaço</p>
+            <p>BACKSPACE → Apaga a última letra</p>
+            <p>CTRL → Fala a frase</p>
+            <p>ESC → Limpar frase</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
